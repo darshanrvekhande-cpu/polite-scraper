@@ -212,8 +212,8 @@ def run() -> None:
 
     book_urls = discover_book_urls(stats)
 
-    # Uncomment the next line to deliberately test failure handling
-    # (Stage 5 checkpoint): a made-up URL that will 404.
+    # Deliberately testing failure handling (Stage 5 checkpoint):
+    # a made-up URL that will 404.
     # book_urls.append(urljoin(BASE_URL, "catalogue/this-book-does-not-exist/index.html"))
 
     valid_records = []
