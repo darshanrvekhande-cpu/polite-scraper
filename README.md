@@ -56,4 +56,33 @@ Each entry in `books.json`:
 - **Cache:** every fetched page is saved to `cache/` and re-read from there on subsequent runs, so the site is only asked once per page during development.
 - **Retry rules:** a `5xx` server error or timeout is retried once; a `404` or `403` is never retried (asking again won't create a missing page, and retrying a block is how a polite robot becomes a pest).
 
-##
+## Run report (Stage 5 proof)
+
+This is a real `output/run-report.json` from a run with one deliberately broken URL added to the book list — the run still finished, all 60 good records still made it into `books.json`, and the broken page was logged and skipped:
+
+```json
+{
+  "start_time": "2026-09-26T07:27:25.259741+00:00",
+  "duration_seconds": 2.75,
+  "catalogue_pages": 3,
+  "pages_fetched": 1,
+  "cache_hits": 63,
+  "discovered_urls": 60,
+  "unique_urls": 60,
+  "valid_records": 60,
+  "invalid_records": 0,
+  "failed_pages": 1
+}
+```
+
+## Why this assignment needed no browser
+
+Every field this scraper collects (title, price, availability, rating, description) is already present in the raw HTML the server sends back — none of it is injected by JavaScript after the page loads. Viewing the page source directly shows all the data needed, so a full browser (like Playwright) would only add startup cost and memory overhead for zero additional data.
+
+## Ethics note
+
+This scraper only touches a site built specifically for scraping practice, at a small, fixed scope (60 records), with an honest identifying user-agent and a polite delay between requests. In general: use an official API when one exists rather than scraping; never bypass logins, paywalls, or explicit blocks; and only collect the data actually needed for the task at hand — not everything a page happens to expose.
+
+## Known limitation
+
+Rating is currently extracted from the CSS class name (`star-rating Three`, etc.) rather than a more robust attribute, so it would break if the site ever changed its markup convention for star ratings.
