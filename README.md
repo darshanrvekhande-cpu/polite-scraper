@@ -1,4 +1,6 @@
 # The Polite Scraper (W5 · A9)
+_Last verified: 2026-09-26 — clean run produced exactly 60 records, 
+zero failures._
 
 A small scraping pipeline: **fetch → extract → normalize → validate → store → report**.
 Downloads the first 3 catalogue pages of [Books to Scrape](https://books.toscrape.com), visits all ~60 book pages, and produces clean, schema-validated JSON — politely, and without crashing on a broken page.
